@@ -1,49 +1,108 @@
-const button = document.querySelector('.roll');
-const image = document.querySelector('.image');
-const image2 = document.querySelector('.image2');
+const diceContainer = document.querySelector('.dice-container');
+const rollButton = document.querySelector('.roll');
+const diceCountSelect = document.getElementById('diceCount');
 
-// рандомнo ищим число
-const getRandomInt = () => Math.floor(Math.random() * (7 - 1)) + 1;
+//   //////////////////////////////////////
 
-function pick(randomNumber) {
-  let img;
-  switch (randomNumber) {
-    case 1:
-      img = "dice_1.png";
-      break;
-    case 2:
-      img = "dice_2.png";
-      break;
-    case 3:
-      img = "dice_3.png";
-      break;
-    case 4:
-      img = "dice_4.png";
-      break;
-    case 5:
-      img = "dice_5.png";
-      break;
-    case 6:
-      img = "dice_6.png";
-      break;
-    default:
-      break;
-  }
-  return img;
+rollButton.addEventListener('click', rollDice);
+/* theme */
+// Добавляем в начало файла
+const themeToggle = document.getElementById('themeToggle');
+
+// Функция переключения темы
+function toggleTheme() {
+	document.body.classList.toggle('light-theme');
+	const isLight = document.body.classList.contains('light-theme');
+	themeToggle.textContent = isLight ? '☀️' : '🌙';
+	localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
+// Инициализация темы при загрузке
+function initTheme() {
+	const savedTheme = localStorage.getItem('theme') || 'dark';
+	if (savedTheme === 'light') {
+		document.body.classList.add('light-theme');
+		themeToggle.textContent = '☀️';
+	} else {
+		themeToggle.textContent = '🌙';
+	}
+}
 
+// Добавляем обработчик клика на кнопку темы
+themeToggle.addEventListener('click', toggleTheme);
 
-setInterval(() => {
-  let event = new Event("click");
-  button.dispatchEvent(event);
-}, 100000);
-button.addEventListener('click', () => { //по нажатию происходит событие
+// //////////////////////////////////
+// SVG шаблон для кубика
+const diceSVG = (dots) => `
+            <svg viewBox="0 0 100 100">
+                ${dots
+									.map((pos) => `<circle class="dot" cx="${pos[0]}" cy="${pos[1]}" r="8"/>`)
+									.join('')}
+            </svg>
+        `;
 
-  const randomNumbers = [getRandomInt(), getRandomInt()];//генерируется число и подставляется в масив двух чисел они в масиве
-  const images = [image, image2];//массив 2 изображений
-  randomNumbers.forEach((num, i) => { //цикл проходит 
-    const img = pick(randomNumbers[i]);//подставляется pick возврящяет 
-    images[i].innerHTML = `<img src=${img}>`;// 
-  })
-})
+// Конфигурация точек для каждой грани
+const diceFaces = {
+	1: [[50, 50]],
+	2: [
+		[30, 30],
+		[70, 70],
+	],
+	3: [
+		[30, 30],
+		[50, 50],
+		[70, 70],
+	],
+	4: [
+		[30, 30],
+		[70, 30],
+		[30, 70],
+		[70, 70],
+	],
+	5: [
+		[30, 30],
+		[70, 30],
+		[30, 70],
+		[70, 70],
+		[50, 50],
+	],
+	6: [
+		[30, 30],
+		[70, 30],
+		[30, 50],
+		[70, 50],
+		[30, 70],
+		[70, 70],
+	],
+};
+
+function createDiceElement() {
+	const div = document.createElement('div');
+	div.className = 'dice';
+	return div;
+}
+
+function updateDice(diceElement, number) {
+	diceElement.classList.add('rolling');
+	setTimeout(() => {
+		diceElement.innerHTML = diceSVG(diceFaces[number]);
+		diceElement.classList.remove('rolling');
+	}, 800);
+}
+
+function rollDice() {
+	const count = parseInt(diceCountSelect.value);
+	const diceElements = Array.from({ length: count }, createDiceElement);
+
+	diceContainer.innerHTML = '';
+	diceElements.forEach((dice) => diceContainer.appendChild(dice));
+
+	diceElements.forEach((dice) => {
+		const randomNumber = 1 + Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] % 6);
+		updateDice(dice, randomNumber);
+	});
+}
+
+// Инициализация начальных кубиков
+initTheme();
+rollDice();
