@@ -1,0 +1,172 @@
+/* Логотип */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  animation: logoFloat 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+  display: block;
+  /* Добавляем стили для корректного отображения SVG */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.logo-emoji {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.logo-emoji:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.logo-title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* CSS переменные для тем */
+:root {
+  --bg-color: #2c3e50;
+  --dice-bg: #fff;
+  --dot-color: #e74c3c;
+  --text-color: #fff;
+  --border-color: #3498db;
+}
+
+body.light-theme {
+  --bg-color: #f0f0f0;
+  --dice-bg: #fff;
+  --dot-color: #c0392b;
+  --text-color: #2c3e50;
+  --border-color: #2980b9;
+}
+
+/* Основные стили */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.dice-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  background: var(--dice-bg);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  transition: transform 0.3s;
+}
+
+.dice.rolling {
+  animation: shake 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0) rotate(-15deg);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0) rotate(10deg);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0) rotate(-25deg);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0) rotate(25deg);
+  }
+}
+
+.dot {
+  fill: var(--dot-color);
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+select {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: 2px solid var(--border-color);
+}
+
+/* Логотип для светлой темы */
+body.light-theme .logo-title {
+  background: linear-gradient(45deg, #e74c3c, #27ae60, #3498db, #f39c12, #9b59b6);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.roll.btn-outline-light {
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+.roll.btn-outline-light:hover {
+  color: var(--bg-color);
+}

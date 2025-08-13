@@ -7,13 +7,22 @@
 			rel="stylesheet"
 		/>
 		<title>Dice Roller</title>
-		<link rel="stylesheet" href="style.css" />
-		<script defer src="app.js"></script>
+		<link rel="stylesheet" href="src/css/style.css" />
+		<script defer src="src/script/app.js"></script>
 	</head>
-
 	<body>
+		<div class="logo-container">
+			<img
+				src="src/img/square.svg"
+				alt="Dice Logo"
+				class="logo"
+				onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+			/>
+			<span class="logo-emoji" style="display: none; font-size: 50px">🎲</span>
+			<h1 class="logo-title">Dice Roller</h1>
+		</div>
+
 		<div class="controls">
-			<!-- Добавили кнопку переключения темы -->
 			<button id="themeToggle" class="btn btn-sm">🌙</button>
 			<select id="diceCount" class="form-select">
 				<option value="2">2 кубика</option>
@@ -21,7 +30,6 @@
 				<option value="4">4 кубика</option>
 				<option value="5">5 кубика</option>
 			</select>
-			<!-- и мультиязычность надо добавить  -->
 			<button class="roll btn btn-outline-light">Бросить кости</button>
 		</div>
 		<div class="dice-container"></div>

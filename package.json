@@ -1,19 +1,35 @@
 {
   "name": "dice_game_js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Игральные кости . Хочешь сыграть в игру, забыл кости тогда тебе к нам ).",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/denis991/Dice_Game_JS.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Denis Gutsuliak (d9911.org)",
+    "email": "admin@d9911.org",
+    "url": "https://t.me/d9911/"
+  },
+  "contributors": [
+    {
+      "name": "Denis Gutsuliak",
+      "email": "admin@d9911.org",
+      "url": "https://t.me/d9911/"
+    }
+  ],
+  "license": "GPL-3.0-only-or-later",
   "bugs": {
     "url": "https://github.com/denis991/Dice_Game_JS/issues"
   },
-  "homepage": "https://github.com/denis991/Dice_Game_JS#readme"
+  "homepage": "https://github.com/denis991/Dice_Game_JS#readme",
+  "devDependencies": {
+    "glob": "^11.0.3",
+    "javascript-obfuscator": "^4.1.1",
+    "replace-in-file": "^8.3.0"
+  }
 }

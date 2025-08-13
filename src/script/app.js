@@ -103,6 +103,8 @@ function rollDice() {
 	});
 }
 
-// Инициализация начальных кубиков
-initTheme();
-rollDice();
+// Инициализация при загрузке DOM
+document.addEventListener('DOMContentLoaded', function() {
+	initTheme();
+	rollDice();
+});
